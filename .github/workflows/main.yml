@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build China IPV4 list.
+name: Build CN IPV4 list.
 
 # Controls when the workflow will run
 on:
