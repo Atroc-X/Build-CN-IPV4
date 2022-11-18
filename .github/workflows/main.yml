@@ -53,7 +53,7 @@ jobs:
           path: code
 
       - name: Generate AS table
-        run: curl -sSL https://download-bw-list-1302801676.cos.ap-hongkong.myqcloud.com/ASN_CN/ASN_CN.txt > ASN_CN.txt
+        run: curl -sSL https://download-bw-list-1302801676.cos.ap-hongkong.myqcloud.com/ASN_CN/ASN_CN.txt > ASN_CN.list
         shell: bash
 
       - name: Fetch bgp data.
@@ -69,7 +69,7 @@ jobs:
 
       - name: Generate China IPv4 list
         run: |
-          cat ASN_CN.txt|xargs bgptools -b rib.txt|cidr-merger -s|grep -Fv ':' > CN_V4.txt
+          cat ASN_CN.list|xargs bgptools -b rib.txt|cidr-merger -s|grep -Fv ':' > CN_V4.txt
         shell: bash
 
       - name: Generate cn.txt sha256 hash
