@@ -6,7 +6,7 @@ name: Build CN IPV4 list.
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 22 * * *"
+    - cron: ""0 2 * * *"
   push:
     branches:
       - main
