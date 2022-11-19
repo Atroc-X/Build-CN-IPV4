@@ -6,12 +6,10 @@ name: Build CN IPV4 list.
 on:
   workflow_dispatch:
   schedule:
-    - cron: ""0 2 * * *"
+    - cron: "0 2 * * *"
   push:
     branches:
       - main
-    paths-ignore:
-      - "**/README.md"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
