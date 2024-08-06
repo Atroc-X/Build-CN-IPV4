@@ -49,7 +49,7 @@ jobs:
           path: code
 
       - name: Generate AS table
-        run: curl -sSL https://download-bw-list-1302801676.cos.ap-hongkong.myqcloud.com/ASN_CN/ASN_CN.txt > ASN_CN.txt
+        run: curl -sSL https://download-asn-list.oss-cn-hongkong.aliyuncs.com/ASN_CN/ASN_CN.txt > ASN_CN.txt
         shell: bash
 
       - name: Fetch bgp data.
