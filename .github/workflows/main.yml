@@ -82,7 +82,7 @@ jobs:
 
       - name: Merge with extra_routes_in_backup.txt and simplify
         run: |
-          cat CN_V4.txt extra_routes_in_backup.txt | cidr-merger -s | sort -n > CN_V4_merged.txt
+          cat CN_V4.txt extra_routes_in_backup.txt | cidr-merger -s | sort -t . -k 1,1n -k 2,2n -k 3,3n -k 4,4n > CN_V4_merged.txt
         shell: bash
 
       - name: Generate cn.txt sha256 hash
