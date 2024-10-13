@@ -68,9 +68,26 @@ jobs:
           cat ASN_CN.txt|xargs bgptools -b rib.txt|cidr-merger -s|grep -Fv ':' > CN_V4.txt
         shell: bash
 
+      - name: Checkout private repository to get extra_routes_in_backup.txt
+        uses: actions/checkout@v2
+        with:
+          repository: Atroc-X/FIX-CN-IP  # 你的私有仓库名称
+          token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub token 访问私有仓库
+          path: private-repo
+
+      - name: Copy extra_routes_in_backup.txt from private repo
+        run: |
+          cp private-repo/extra_routes_in_backup.txt ./extra_routes_in_backup.txt
+        shell: bash
+
+      - name: Merge with extra_routes_in_backup.txt and simplify
+        run: |
+          cat CN_V4.txt extra_routes_in_backup.txt | cidr-merger -s | sort -n > CN_V4_merged.txt
+        shell: bash
+
       - name: Generate cn.txt sha256 hash
         run: |
-          sha256sum CN_V4.txt > CN_V4.txt.sha256sum
+          sha256sum CN_V4_merged.txt > CN_V4_merged.txt.sha256sum
         shell: bash
 
       - name: Checkout release branch
@@ -81,8 +98,8 @@ jobs:
 
       - name: Git push assets to "release" branch
         run: |
-          mv CN_V4.txt release/
-          mv CN_V4.txt.sha256sum release/
+          mv CN_V4_merged.txt release/CN_V4.txt
+          mv CN_V4_merged.txt.sha256sum release/CN_V4.txt.sha256sum
           cd release
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
