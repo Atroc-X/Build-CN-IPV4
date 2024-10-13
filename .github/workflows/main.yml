@@ -68,11 +68,11 @@ jobs:
           cat ASN_CN.txt|xargs bgptools -b rib.txt|cidr-merger -s|grep -Fv ':' > CN_V4.txt
         shell: bash
 
-      - name: Checkout private repository to get extra_routes_in_backup.txt
+      - name: Checkout private repository
         uses: actions/checkout@v2
         with:
-          repository: Atroc-X/FIX-CN-IP  # 你的私有仓库名称
-          token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub token 访问私有仓库
+          repository: Atroc-X/FIX-CN-IP  
+          token: ${{ secrets.MY_GITHUB_PAT }}  
           path: private-repo
 
       - name: Copy extra_routes_in_backup.txt from private repo
